@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 // Port
-const port =  3000
+const port =  process.env.PORT || 3000
 // Send Data
 app.use(express.urlencoded({ extended: true }));
 // Get Data
@@ -14,7 +14,9 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 // Routes
 const Routes = require('./Routes/route')
-
+// Cors
+const cors = require("cors")
+app.use(cors)
 // =========== AUTO REFRESH ==============
  
 const path = require("path");
