@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+// Import Database
 // Port
 const port =  process.env.PORT || 3000
 // Send Data
@@ -14,9 +15,9 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 // Routes
 const Routes = require('./Routes/route')
-// Cors
-const cors = require("cors")
-app.use(cors)
+// 
+const cors = require('cors');
+app.use(cors())
 // =========== AUTO REFRESH ==============
  
 const path = require("path");
@@ -34,15 +35,22 @@ liveReloadServer.server.once("connection", () => {
 });
 
 // =========== APP LISTEN ==============
+require('dotenv').config();
+const MONGO_URL = process.env.MONGO_URL;
+const PORT = process.env.PORT || 4000;
 
-app.listen(port, () => {
-  console.log(`http://localhost:${port}/`);
+// +++++++++
+// app.listen(port, () => {
+//   console.log(`http://localhost:${port}/`);
+// });
+
+app.listen(PORT, () => {
+  console.log('listening on port: 4000');
 });
-
 // =========== CONNECT DATABASE  ==============
 
 mongoose
-  .connect("mongodb+srv://CourseNodeJS:01023982624NodeJS@cluster0.uoejedo.mongodb.net/?retryWrites=true&w=majority")
+  .connect(MONGO_URL)
   .then(() => {
     console.log("Connect Successfully!")
   })
